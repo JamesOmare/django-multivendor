@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} {% firstof user.get_full_name user.username %} {% endblock title %}
+    
+{% block content %}
+<h1 class="text-2xl">Sign up</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    <!-- form as paragraph not in a single line -->
+    {{ form.as_p }}
+
+    <button class="py-4 px-8 bg-teal-800 text-white">Sign up</button>
+</form>
+
+{% endblock content %}
