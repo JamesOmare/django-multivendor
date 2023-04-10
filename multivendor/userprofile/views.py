@@ -16,6 +16,10 @@ def vendor_details(request, pk):
     return render(request, 'userprofile/vendor_details.html', context)
 
 
+def my_store(request):
+    return render(request, 'userprofile/my_store.html')
+
+
 def myaccount(request):
     return render(request, 'userprofile/myaccount.html')
 
