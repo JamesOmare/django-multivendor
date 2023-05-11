@@ -1,4 +1,4 @@
-#!/home/james/Desktop/DJANGO/multivendor/venv/bin/python
+#!/home/james/Desktop/Django/django-multivendor/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
