@@ -1,3 +1,4 @@
+import stat
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
@@ -6,7 +7,7 @@ from .models import Product, Category
 
 def search(request):
     query = request.GET.get('query', '')
-    products = Product.objects.filter(
+    products = Product.objects.filter(status = Product.ACTIVE).filter(
         Q(title__icontains = query) | Q(description__icontains = query)
     )
     context = {
@@ -18,17 +19,16 @@ def search(request):
 
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug = slug)
-    products = category.products.all()
+    products = category.products.filter(status = Product.ACTIVE)
     context = {
         'category': category,
         'products': products
     }
     return render(request, 'store/category_detail.html', context)
 
-# Create your views here.
 
 def product_detail(request, category_slug, slug):
-    product = get_object_or_404(Product, slug=slug)
+    product = get_object_or_404(Product, slug=slug, status=Product.ACTIVE)
     context = {
         'product': product
     }
