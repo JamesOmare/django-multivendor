@@ -1,3 +1,4 @@
+from audioop import add
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.files import File
@@ -63,9 +64,9 @@ class Product(models.Model):
                 
                 return self.thumbnail.url
             else:
-                return 'https://via.placeholder.com/240x240.jpg'
+                return 'https://placehold.co/600x340'
     
-    def make_thumbnail(self, image, size=(300, 300)):
+    def make_thumbnail(self, image, size=(600, 400)):
         img = Image.open(image)
         img.convert('RGB')
         img.thumbnail(size)
@@ -77,4 +78,23 @@ class Product(models.Model):
         thumbnail = File(thumb_io, name=name)
         
         return thumbnail
+    
+    
+class Order(models.Model):
+    first_name = models.CharField(max_length=500)
+    last_name = models.CharField(max_length=500)
+    address = models.CharField(max_length=500)
+    zipcode = models.CharField(max_length=500)
+    city = models.CharField(max_length=500)
+    total_cost = models.IntegerField(default=0)
+    is_paid = models.BooleanField(default=False)
+    merchant_id = models.CharField(max_length=500)
+    created_by = models.ForeignKey(User, related_name='orders', on_delete=models.SET_NULL, null=True)   
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
+    price = models.IntegerField()
+    quantity = models.IntegerField(default=1)
 
