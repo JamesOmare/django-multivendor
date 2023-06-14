@@ -97,4 +97,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
     price = models.IntegerField()
     quantity = models.IntegerField(default=1)
+    
+    def get_display_price(self):
+        return self.price / 100
 
