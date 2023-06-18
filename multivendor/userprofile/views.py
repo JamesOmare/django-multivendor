@@ -1,5 +1,3 @@
-from itertools import product
-from math import prod
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
